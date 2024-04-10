@@ -17,7 +17,7 @@ runs:
         version: 8
         package_json_file: ${{ inputs.database_directory }}/package.json
         run_install: |
-          cwd: ${{ inputs.database_directory }}
+          cwd: ./database
 
     - uses: actions/setup-node@v4
       with:
