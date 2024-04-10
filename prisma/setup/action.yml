@@ -16,11 +16,12 @@ runs:
       with:
         version: 8
         package_json_file: ${{ inputs.database_directory }}/package.json
-        run_install:
-          cwd: ${{ inputs.database_directory }}
 
     - uses: actions/setup-node@v4
       with:
         node-version: '20'
         cache: 'pnpm'
         cache-dependency-path: ${{ inputs.database_directory }}
+
+    - run: cd ${{ inputs.database_directory }} && pnpm install
+      shell: bash
