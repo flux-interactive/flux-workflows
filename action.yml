@@ -8,6 +8,6 @@ runs:
       uses: actions/checkout@v2
       with:
         repository: flux-interactive/flux-workflows
-        ref: ${{ github.ref }}
+        ref: dev
         path: "./.github/actions/flux-workflows"
         token: ${{ github.token }}
