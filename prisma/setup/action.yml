@@ -1,10 +1,5 @@
 name: 'Setup Prism Dependencies'
-description: 'Set Prisma in specified working directory'
-
-inputs:
-  database_directory:
-    required: true
-    description: 'Directory containing the Prisma schema'
+description: 'Set Prisma in specified working directory'`gi
 
 runs:
   using: "composite"
@@ -15,12 +10,8 @@ runs:
     - uses: pnpm/action-setup@v3
       with:
         version: 8
-        package_json_file: ${{ inputs.database_directory }}/package.json
-        run_install: |
-          cwd: ./database
 
     - uses: actions/setup-node@v4
       with:
         node-version: '20'
         cache: 'pnpm'
-        cache-dependency-path: ${{ inputs.database_directory }}

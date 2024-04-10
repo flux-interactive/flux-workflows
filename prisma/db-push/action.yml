@@ -14,8 +14,7 @@ runs:
   using: "composite"
   steps:
     - uses: ./.github/actions/flux-workflows/prisma/setup
-      with:
-        database_directory: ${{ inputs.database_directory }}
+      working-directory: ${{ inputs.database_directory }}
 
     - run: pnpm prisma db push
       shell: bash
