@@ -10,3 +10,4 @@ runs:
         repository: flux-interactive/flux-workflows
         ref: ${{ github.ref }}
         path: "./.github/actions/flux-workflows"
+        token: ${{ github.token }}
