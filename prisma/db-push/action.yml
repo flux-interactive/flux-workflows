@@ -1,0 +1,23 @@
+name: 'Push Prisma Schema to Database'
+description: 'Use Setup Prisma to prepare environment and then push schema to database'
+
+inputs:
+  database_directory:
+    required: true
+    description: 'Directory containing the Prisma schema'
+
+  database_url:
+    required: true
+    description: 'Database URL to push schema to'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: ./.github/actions/prisma/setup
+      with:
+        database_directory: ${{ inputs.database_directory }}
+
+    - run: pnpm prisma db push
+      working-directory: ${{ inputs.database_directory }}
+      env:
+        DATABASE_URL: "${{ inputs.database_url }}"

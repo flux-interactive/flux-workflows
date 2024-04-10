@@ -1,0 +1,47 @@
+name: 'Push Prisma Schema to Railway Database'
+description: 'Gets and sets the Railway database URL and sets it as an environment variable for other steps to use'
+
+inputs:
+  railway_project_id:
+    required: true
+    description: 'Railway project ID'
+
+  railway_environment:
+    required: true
+    description: 'Railway environment name'
+
+  railway_database_name:
+    required: true
+    description: 'Name of the database to link'
+
+  railway_api_token:
+    required: true
+    description: 'Railway API token'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: ./.github/actions/railway/setup
+      with:
+        railway_environment: ${{ inputs.railway_environment }}
+        railway_project_id: ${{ inputs.railway_project_id }}
+        railway_database_name: ${{ inputs.railway_database_name }}
+        railway_api_token: ${{ inputs.railway_api_token }}
+
+    - id: get-database-url
+      run: |
+        DATABASE_URL=$(railway variables --kv | grep -E 'DATABASE_URL|MYSQL_URL' | head -n 1 | cut -d '=' -f2)
+        if [ -z "$DATABASE_URL" ]; then
+          echo "database_url not found." >&2
+          exit 1
+        else
+          echo "database_url=$DATABASE_URL" >> $GITHUB_OUTPUT
+        fi
+      env:
+        RAILWAY_API_TOKEN: ${{ inputs.railway_api_token }}
+
+    - id: push-schema
+      uses: ./.github/actions/prisma/db-push
+      with:
+        database_url: ${{ steps.get-database-url.outputs.database_url }}
+        database_directory: ./database
