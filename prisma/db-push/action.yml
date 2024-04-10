@@ -13,7 +13,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: ./.github/actions/prisma/setup
+    - uses: ./.github/actions/flux-workflows/prisma/setup
       with:
         database_directory: ${{ inputs.database_directory }}
 
