@@ -11,7 +11,3 @@ runs:
         ref: dev
         path: "./.github/actions/flux-workflows"
         token: ${{ github.token }}
-
-    - name: Cleanup
-      runs: |
-        rm -rf ./.github/actions/flux-workflows/action.yml
