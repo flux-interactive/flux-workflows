@@ -23,5 +23,6 @@ runs:
         cache: 'pnpm'
         cache-dependency-path: ${{ inputs.database_directory }}
 
-    - run: cd ${{ inputs.database_directory }} && pnpm install
+    - run: pnpm install
+      working-directory: ${{ inputs.database_directory }}
       shell: bash
