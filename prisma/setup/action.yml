@@ -9,7 +9,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: apt-get update -y && apt-get install -y openssl
+    - run: sudo apt-get update -y && apt-get install -y openssl
       shell: bash
 
     - uses: pnpm/action-setup@v3
