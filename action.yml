@@ -1,0 +1,12 @@
+name: 'Checkout Flux Workflows'
+description: 'Checks out Flux Workflows for use in consuming workflows'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        repository: flux-interactive/flux-workflows
+        ref: ${{ github.ref }}
+        path: "./.github/actions/flux-workflows"
