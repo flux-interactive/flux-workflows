@@ -18,6 +18,10 @@ inputs:
     required: true
     description: 'Railway API token'
 
+  database_directory:
+    required: true
+    description: 'Directory containing the Prisma schema'
+
 runs:
   using: 'composite'
   steps:
@@ -45,4 +49,4 @@ runs:
       uses: ./.github/actions/flux-workflows/prisma/db-push
       with:
         database_url: ${{ steps.get-database-url.outputs.database_url }}
-        database_directory: ./database
+        database_directory: ${{ inputs.database_directory }}
